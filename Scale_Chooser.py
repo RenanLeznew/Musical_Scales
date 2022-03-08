@@ -8,14 +8,12 @@ class Scale():
         self.scales = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
         self.modes = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
         self.general_scale = {"i":"tonic", "ii":"supertonic", "iii":"mediant", "iv":"subdominant", "v":"dominant", "vi":"submediant", "vii":"subtonic"}
-        self.scales_picker = random.randint(0, 11)
+        self.root_picker = random.randint(0, 11)
         self.modes_picker = random.randint(0, 6)
-        self.scale = self.scales[self.scales_picker]
+        self.root = self.scales[self.root_picker]
         self.mode = self.modes[self.modes_picker]
-        self.play = "The scale to be played is the " + str(self.scale) + " " + str(self.mode)
+        self.play = "The scale to be played is the " + str(self.root) + " " + str(self.mode)
     def generate_scale(self):
-        self.mode = self.mode
-        self.root = self.scale
         self.general_scale["i"] = self.root
         tone_value = self.root
         for tone in self.general_scale:
