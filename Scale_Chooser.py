@@ -14,9 +14,10 @@ class Scale():
         self.mode = self.modes[self.modes_picker]
         self.play = "The scale to be played is the " + str(self.scale) + " " + str(self.mode)
     def generate_scale(self):
-        root = str(self.scale)
-        self.general_scale["i"] = root
-        tone_value = root
+        self.mode = self.mode
+        self.root = self.scale
+        self.general_scale["i"] = self.root
+        tone_value = self.root
         for tone in self.general_scale:
             if tone != "i":
                 if tone != "iv":
@@ -25,6 +26,18 @@ class Scale():
                 else:
                     tone_value = self.step_function("half", tone_value)
                     self.general_scale[tone] = tone_value
+        if self.mode == "Lydian":
+            self.general_scale["iv"] = self.sharp_function(self.general_scale.get("iv"))            
+        if self.mode == "Mixolydian" or self.mode == "Dorian" or self.mode == "Phrygian" or self.mode == "Aeolian" or self.mode == "Locrian":
+            self.general_scale["vii"] = self.flat_function(self.general_scale.get("vii"))
+        if self.mode == "Dorian" or self.mode == "Phrygian" or self.mode == "Aeolian" or self.mode == "Locrian":
+            self.general_scale["iii"] = self.flat_function(self.general_scale.get("iii"))
+        if self.mode == "Phrygian" or self.mode == "Aeolian" or self.mode == "Locrian":
+            self.general_scale["vi"] = self.flat_function(self.general_scale.get("vi"))
+        if self.mode == "Phrygian" or self.mode == "Locrian":
+            self.general_scale["ii"] = self.flat_function(self.general_scale.get("ii"))
+        if self.mode == "Locrian":
+            self.general_scale["v"] = self.flat_function(self.general_scale.get("v"))    
         return self.general_scale
 
     def step_function(self, step, note):
@@ -37,14 +50,24 @@ class Scale():
             self.half_step = self.scales[self.step%12]
             return self.half_step
 
+    def flat_function(self, note):
+        self.flat = self.scales.index(note) - 1
+        self.flattened_note = self.scales[self.flat]
+        return self.flattened_note
+
+    def sharp_function(self, note):
+        self.sharp = self.scales.index(note) + 1
+        self.sharpened_note = self.scales[self.sharp%12]
+        return self.sharpened_note
+
 def update_scale(label):
+    global scale_chosen
     scale_chosen = Scale()
     label['text'] = scale_chosen.play
 
 def show_scale(label):
-    scale_to_show = Scale()
-    note_dictionary = scale_to_show.generate_scale()
+    note_dictionary = scale_chosen.generate_scale()
     scale_string = ""
     for note in note_dictionary.values():
         scale_string += note + ", " 
-    label['text'] = scale_string
+    label['text'] = scale_string + scale_chosen.root

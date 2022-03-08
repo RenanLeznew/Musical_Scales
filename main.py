@@ -1,6 +1,4 @@
 from tkinter import *
-
-from sympy import re, riemann_xi
 import Scale_Chooser as scale
 
 root = Tk()
@@ -10,7 +8,7 @@ root.geometry("1600x900")
 title = Label(root, text="Scales Chooser", font=('VERDANA', 20), fg="cyan")
 title.place(anchor=CENTER, relx=0.5, rely=0.1)
 
-label_scale = Label(root, text="", font = 60)
+label_scale = Label(root, text="", font=140)
 label_scale.place(anchor=CENTER, relx=0.5, rely=0.5)
 
 label_randomized_scale = Label(root, text="", font=40)
