@@ -8,6 +8,7 @@ class Scale():
         self.scales = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
         self.modes = ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]
         self.general_scale = {"i":"tonic", "ii":"supertonic", "iii":"mediant", "iv":"subdominant", "v":"dominant", "vi":"submediant", "vii":"subtonic"}
+        self.major_chords = {"C": "C E G", "Db":"Db F Ab", "D":"D Gb A", "Eb":"Eb G Bb", "E":"E Ab B", "F":"F A C", "Gb":"Gb Bb Db", "G":"G B D", "Ab":"Ab C Eb", "A":"A Db E", "Bb":"Bb D F", "B":"B Eb Gb"}
         self.root_picker = random.randint(0, 11)
         self.modes_picker = random.randint(0, 6)
         self.root = self.scales[self.root_picker]
@@ -37,6 +38,11 @@ class Scale():
         if self.mode == "Locrian":
             self.general_scale["v"] = self.flat_function(self.general_scale.get("v"))    
         return self.general_scale
+
+    def generate_chords(self):
+        self.scale = self.generate_scale(self)
+        self.chord_family = []
+        return 0
 
     def step_function(self, step, note):
         if step == "whole":
